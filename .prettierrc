@@ -1,0 +1,23 @@
+{
+    "plugins": ["@trivago/prettier-plugin-sort-imports"],
+    "importOrder": [
+        "^react?.+$",
+        "^@reduxjs?.+$",
+        "^@mui/material?.+$",
+        "^(?![@\\.]).+$",
+        "^app",
+        "^pageModules",
+        "^shared",
+        "^entities",
+        "^features",
+        "^widgets",
+        "^(?!\\.+\\/styles)^[./]?.+$",
+        "^\\.+\\/styles$"
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true,
+    "semi": true,
+    "tabWidth": 4,
+    "printWidth": 140,
+    "singleQuote": true
+}
