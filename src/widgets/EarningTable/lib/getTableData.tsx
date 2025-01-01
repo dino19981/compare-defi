@@ -1,4 +1,4 @@
-import { Link } from '@mui/material';
+import { Link, Stack } from '@mui/material';
 
 import { formatPercentage } from 'shared/lib/formatter';
 import { isDefined } from 'shared/lib/is-defined';
@@ -6,8 +6,31 @@ import { findMinMax } from 'shared/lib/number';
 import { EarnItem, EarnItemRate } from 'shared/model/earn';
 import { LogoWithName } from 'shared/ui/LogoWithName';
 import { TableCellProps } from 'shared/ui/Table';
+import { v4 as uuid } from 'uuid';
 
-export const formatBodyData = (data: EarnItem): TableCellProps[] => {
+const emptyRow = [
+    {
+        children: <Stack style={{ padding: '10px' }} />,
+        key: uuid(),
+    },
+    {
+        children: <Stack style={{ padding: '10px' }} />,
+        key: uuid(),
+    },
+    {
+        children: <Stack style={{ padding: '10px' }} />,
+        key: uuid(),
+    },
+    {
+        children: <Stack style={{ padding: '10px' }} />,
+        key: uuid(),
+    },
+];
+
+export const formatBodyData = (data: EarnItem | undefined): TableCellProps[] => {
+    if (!data) {
+        return emptyRow;
+    }
     const isRatesMoreThanOne = data.rates.length > 1;
     const rates = isRatesMoreThanOne ? getMinAndMaxRate(data.rates) : formatPercentage(data.rates[0].currentApy);
 

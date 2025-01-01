@@ -17,8 +17,8 @@ class _OkxService {
 
     getEarnings = async () => {
         const endpoint = '/api/v5/finance/staking-defi/offers';
-        const data = await this.axios<OkxEarnsDto>(this.url + endpoint, { headers: this.getHeaders() });
-        console.log(data.data, 'ddasdsadsads');
+        const data = await this.axios<OkxEarnsDto>('https://www.okx.com/priapi/v1/earn/simple-earn/all-products?type=all&t=1735749419904');
+        // const data = await this.axios<OkxEarnsDto>(this.url + endpoint, { headers: this.getHeaders() });
 
         return data.data;
     };

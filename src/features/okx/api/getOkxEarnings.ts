@@ -1,36 +1,34 @@
 import { getTokenLogoByTokenName } from 'shared/lib/earn';
 import { EarnItem, EarnItemLevel } from 'shared/model/earn';
 import { isAvailableTokenForEarnings } from 'src/shared/lib/earnings';
+import { v4 as uuid } from 'uuid';
 
-import logoSrc from '../assets/okx.png';
+import logoSrc from '../assets/okx.svg';
 import { OkxEarnDto } from '../model';
 import { OkxService } from './okxService';
 
 export const getOkxEarnings = async () => {
     try {
         const { data } = await OkxService.getEarnings();
-        console.log(data, 'dataa');
 
-        return mapToFrontendData(data);
+        return mapToFrontendData(data.allProducts.currencies);
     } catch (e) {
-        console.log(e, 'eqweqweqw');
-
         return [];
     }
 };
 
 function mapToFrontendData(items: OkxEarnDto[]) {
     return items.reduce((acc: EarnItem[], item) => {
-        if (!isAvailableTokenForEarnings(item.ccy)) {
+        if (!isAvailableTokenForEarnings(item.investCurrency.currencyName)) {
             return acc;
         }
 
-        const logo = getTokenLogoByTokenName(item.ccy);
+        const logo = getTokenLogoByTokenName(item.investCurrency.currencyName);
 
         acc.push({
-            id: item.productId,
+            id: uuid(),
             token: {
-                name: item.ccy,
+                name: item.investCurrency.currencyName,
                 icon: logo,
             },
             periodType: 'flexible',
@@ -41,7 +39,7 @@ function mapToFrontendData(items: OkxEarnDto[]) {
             },
             rates: [
                 {
-                    currentApy: +item.apy,
+                    currentApy: +item.rate.rateNum.value[0],
                     rateLevel: 0,
                 },
             ],

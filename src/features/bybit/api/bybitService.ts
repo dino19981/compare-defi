@@ -18,7 +18,6 @@ class _BybitService {
     getEarnings = async () => {
         const endpoint = '/v5/broker/earnings-info';
         const data = await this.axios<BitgetEarnsDto>(this.url + endpoint, { headers: this.getHeaders() });
-        console.log(data.data, 'data');
 
         return data.data;
     };
