@@ -11,13 +11,12 @@
         "^entities",
         "^features",
         "^widgets",
-        "^(?!\\.+\\/styles)^[./]?.+$",
-        "^\\.+\\/styles$"
+        "^[./]"
     ],
     "importOrderSeparation": true,
     "importOrderSortSpecifiers": true,
     "semi": true,
     "tabWidth": 2,
-    "printWidth": 140,
+    "printWidth": 100,
     "singleQuote": true
 }

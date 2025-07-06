@@ -16,7 +16,7 @@ interface Props {
     data: EarnItem[];
     pages: number;
 }
-// https://api-app.qq-os.com/api/wealth-sales-trading/v1/product/list?searchType=&dataType=
+
 export const EarningTable = ({ data, pages }: Props) => {
     const { sortedData, order, orderBy, onChangeSort } = useTableSort({
         data,
@@ -31,7 +31,6 @@ export const EarningTable = ({ data, pages }: Props) => {
     return (
         <Box sx={{ width: '100%' }}>
             <Paper sx={{ width: '100%', mb: 2 }}>
-                <button onClick={getUniswapApy}>ewqe</button>
                 {/* <button onClick={sendMessage}>ewqe</button> */}
 
                 <Table headCells={headCells} bodyRows={bodyRows} />

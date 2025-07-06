@@ -15,7 +15,7 @@ export const sendMessage = async () => {
     try {
       const mailOptions = {
         from: 'sharkpro.smr@gmail.com',
-        to: 'dino.olimp@gmail.com',
+        to: 'dino.olimp@mail.ru',
         subject: 'Заказ с вашего сайта',
         html: `<!doctype html>
 <html lang="ru">
@@ -24,9 +24,108 @@ export const sendMessage = async () => {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>mail</title>
+    <style>
+      @media screen and (max-width: 460px) {
+        .container {
+          padding: 38px 24px !important;
+        }
+
+        .logo {
+          width: 83px !important;
+          height: 20px !important;
+        }
+
+        .icon {
+          width: 61px !important;
+          height: 55px !important;
+          margin-top: 40px !important;
+          margin-bottom: 60px !important;
+        }
+
+        .title {
+          font-size: 32px !important;
+          line-height: 32px !important;
+        }
+
+        .description {
+          font-size: 17px !important;
+          line-height: 22px !important;
+          margin-top: 20px !important;
+        }
+
+        .confirm-button {
+          margin-top: 40px !important;
+          margin-bottom: 60px !important;
+          font-size: 24px !important;
+          padding: 12px 0 !important;
+        }
+
+        .footer-text {
+          font-size: 17px !important;
+          line-height: 22px !important;
+          margin-bottom: 50px !important;
+        }
+
+        .social-links {
+          margin-bottom: 20px !important;
+        }
+
+        .copyright {
+          font-size: 14px !important;
+          line-height: 18px !important;
+        }
+      }
+
+      @media screen and (max-width: 375px) {
+        .container {
+          padding: 28px 24px !important;
+        }
+
+        .icon {
+          width: 58px !important;
+          height: 52px !important;
+          margin-top: 30px !important;
+          margin-bottom: 40px !important;
+        }
+
+        .title {
+          font-size: 24px !important;
+          line-height: 29px !important;
+        }
+
+        .description {
+          font-size: 15px !important;
+          line-height: 20px !important;
+          margin-top: 15px !important;
+        }
+
+        .confirm-button {
+          margin-top: 30px !important;
+          margin-bottom: 50px !important;
+          font-size: 16px !important;
+          padding: 12px 0 !important;
+        }
+
+        .footer-text {
+          font-size: 15px !important;
+          line-height: 22px !important;
+          margin-bottom: 44px !important;
+        }
+
+        .social-links {
+          margin-bottom: 15px !important;
+        }
+
+        .copyright {
+          font-size: 13px !important;
+          line-height: 18px !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <div
+      class="container"
       style="
         max-width: 600px;
         margin: 0 auto;
@@ -41,21 +140,24 @@ export const sendMessage = async () => {
     >
       <!-- <img src="./logo.png" alt="" style="width: 130px; height: 31px; display: block" /> -->
       <img
+        class="logo"
         src="https://drive.usercontent.google.com/download?id=1N4qkYKXeqSpXOG_2qk9E1XJjgL_Oo_Vs&export=download&authuser=0&confirm=t&uuid=c09f2d42-6731-4169-9b6b-b097e3f53d8b&at=ALoNOgmx6MhjP_ULTcX806S1rBdf:1746812300449"
         alt=""
         style="width: 130px; height: 31px; display: block"
       />
 
       <img
-        src="https://drive.usercontent.google.com/download?id=1Q6DW9uHYienpgqjagsQPSK0FtNTQtnQi&export=download&authuser=0&confirm=t&uuid=bfaa05a1-58de-426c-972a-72b871157cae&at=ALoNOglea-gWobKt44OsT1X9u9Sb:1746812575364"
-        style="width: 76px; height: 76px; margin-top: 50px; margin-bottom: 60px; display: block"
+        class="icon"
+        src="https://drive.usercontent.google.com/download?id=1wW4DCYLxce-RD9LgvWqbLHKmHRyn6l1b&export=download&authuser=0&confirm=t&uuid=c7941702-25b5-4fba-8ef9-b6c0babdede6&at=ALoNOgmebf_b6ddqSYn3Webgt1BT:1746812196720"
+        style="width: 84px; height: 76px; margin-top: 50px; margin-bottom: 60px; display: block"
       />
       <!-- <img
-      src="https://drive.usercontent.google.com/download?id=1wW4DCYLxce-RD9LgvWqbLHKmHRyn6l1b&export=download&authuser=0&confirm=t&uuid=d991286c-47d9-4b7d-b5de-7204436eba61&at=AIrpjvOrBGVXVekp09m6p2cwyEgm:1737479887142"
-      style="width: 80px; height: 72px; margin-top: 50px; margin-bottom: 47px; display: block"
-    /> -->
+        src="https://drive.usercontent.google.com/download?id=1wW4DCYLxce-RD9LgvWqbLHKmHRyn6l1b&export=download&authuser=0&confirm=t&uuid=d991286c-47d9-4b7d-b5de-7204436eba61&at=AIrpjvOrBGVXVekp09m6p2cwyEgm:1737479887142"
+        style="width: 80px; height: 72px; margin-top: 50px; margin-bottom: 47px; display: block"
+      /> -->
 
       <h1
+        class="title"
         style="
           font-size: 40px;
           font-weight: 400;
@@ -68,9 +170,10 @@ export const sendMessage = async () => {
           margin-bottom: 0;
         "
       >
-        Оплата подписки не прошла
+        Подтвердите свой адрес электронной почты
       </h1>
       <p
+        class="description"
         style="
           font-family: 'Arial', sans-serif;
           color: #fff;
@@ -83,9 +186,11 @@ export const sendMessage = async () => {
           margin-bottom: 0;
         "
       >
-        К сожалению, мы не смогли списать денежные средства с вашей банковской карты.
+        Чтобы продолжить настройку своего аккаунта, подтвердите, что это ваш адрес электронной
+        почты.
       </p>
       <a
+        class="confirm-button"
         style="
           background: transparent linear-gradient(95deg, #00ff3b 0%, #05edc0 100%) 0% 0% no-repeat
             padding-box;
@@ -104,10 +209,11 @@ export const sendMessage = async () => {
           text-align: center;
           padding: 13px 0;
         "
-        href="{{web_url}}"
-        >Обновить данные оплаты</a
+        href="{{confirm_link}}"
+        >Подтвердить</a
       >
       <p
+        class="footer-text"
         style="
           color: #919191;
           font-size: 20px;
@@ -118,7 +224,8 @@ export const sendMessage = async () => {
           margin-bottom: 60px;
         "
       >
-        Мы остаёмся в вашем распоряжении для получения любой информации через наш
+        Срок действия этой ссылки истекает через 3 часа. Если вы не делали этот запрос,
+        проигнорируйте это письмо. Для получения помощи, свяжитесь с нами через наш
         <a
           style="
             text-decoration: none;
@@ -146,7 +253,7 @@ export const sendMessage = async () => {
         >
       </div>
 
-      <div style="text-align: center; margin-bottom: 20px">
+      <div class="social-links" style="text-align: center; margin-bottom: 20px">
         <a
           href="{{telegram_url}}"
           target="_blank"
@@ -210,6 +317,7 @@ export const sendMessage = async () => {
 
       <div style="width: max-content; margin: 0 auto">
         <p
+          class="copyright"
           style="
             opacity: 0.41;
             font-family: 'Arial', sans-serif;

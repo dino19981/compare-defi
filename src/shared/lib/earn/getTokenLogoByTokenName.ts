@@ -7,14 +7,14 @@ import usdt from '../../assets/tokens/usdt.svg';
 import { AVAILABLE_TOKENS } from '../earnings';
 
 const tokenLogos: Record<(typeof AVAILABLE_TOKENS)[number], string> = {
-    usdt: usdt,
-    usdc: usdc,
-    usde: usde,
-    btc: btc,
-    eth: eth,
-    sol: solana,
+  usdt: usdt,
+  usdc: usdc,
+  usde: usde,
+  btc: btc,
+  eth: eth,
+  sol: solana,
 };
 
 export const getTokenLogoByTokenName = (tokenName: string): string | undefined => {
-    return tokenLogos[tokenName.toLowerCase()];
+  return tokenLogos[tokenName.toLowerCase()];
 };
