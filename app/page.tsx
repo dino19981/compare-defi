@@ -1,3 +1,3 @@
-import { Main } from 'src/pageModules/Main';
+import { Main } from 'pageModules/Earn';
 
 export default Main;

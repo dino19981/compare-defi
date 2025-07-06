@@ -36,14 +36,24 @@ export const formatBodyData = (data: EarnItem | undefined): TableCellProps[] => 
 
     return [
         {
-            children: <LogoWithName containerProps={{ sx: { justifyContent: 'center' } }} name={data.token.name} logo={data.token.icon} />,
+            children: (
+                <LogoWithName
+                    containerProps={{ sx: { justifyContent: 'flex-start', margin: '0 auto', width: '67px' } }}
+                    name={data.token.name}
+                    logo={data.token.icon}
+                />
+            ),
             key: 'token',
             align: 'center',
         },
         { children: rates, key: 'rates', align: 'center' },
         {
             children: (
-                <LogoWithName containerProps={{ sx: { justifyContent: 'center' } }} name={data.platform.name} logo={data.platform.icon} />
+                <LogoWithName
+                    containerProps={{ sx: { justifyContent: 'flex-start', margin: '0 auto', width: '67px' } }}
+                    name={data.platform.name}
+                    logo={data.platform.icon}
+                />
             ),
             align: 'center',
             key: 'platform',

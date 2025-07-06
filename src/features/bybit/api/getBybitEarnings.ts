@@ -7,56 +7,58 @@ import { BitgetEarnDto } from '../model/bitgetEarnDto';
 import { BybitService } from './bybitService';
 
 export const getBybitEarnings = async () => {
-    try {
-        const { data } = await BybitService.getEarnings();
+  try {
+    const { data } = await BybitService.getEarnings();
 
-        return mapToFrontendData(data);
-    } catch {
-        return [];
-    }
+    return mapToFrontendData(data);
+  } catch (e: any) {
+    console.log(e?.status, 'BybitService error');
+
+    return [];
+  }
 };
 
 function mapToFrontendData(items: BitgetEarnDto[]) {
-    // // return items.reduce((acc: EarnItem[], item) => {
-    // if (!isAvailableTokenForEarnings(item.coin)) {
-    //     return acc;
-    // }
+  // // return items.reduce((acc: EarnItem[], item) => {
+  // if (!isAvailableTokenForEarnings(item.coin)) {
+  //     return acc;
+  // }
 
-    // const logo = getTokenLogoByTokenName(item.coin);
+  // const logo = getTokenLogoByTokenName(item.coin);
 
-    // acc.push({
-    //     id: item.productId,
-    //     name: item.coin,
-    //     periodType: item.periodType,
-    //     platform: {
-    //         link: 'https://www.bitget.com/ru/earning/savings?source1=earn&source2=savings',
-    //         name: 'Bybit',
-    //         icon: logoSrc,
-    //     },
-    //     rates: item.apyList,
-    //     productLevel: item.productLevel,
-    // });
-    // acc.push({
-    //     id: item.productId,
-    //     token: {
-    //         name: item.coin,
-    //         icon: logo,
-    //     },
-    //     periodType: item.periodType,
-    //     platform: {
-    //         link: 'https://share.bitget.com/u/G2556G9Q',
-    //         name: 'Bitget',
-    //         icon: logoSrc,
-    //     },
-    //     rates: item.apyList.map((item) => ({
-    //         currentApy: +item.currentApy,
-    //         rateLevel: +item.rateLevel,
-    //     })),
-    //     productLevel: item.productLevel as never as EarnItemLevel,
-    // });
+  // acc.push({
+  //     id: item.productId,
+  //     name: item.coin,
+  //     periodType: item.periodType,
+  //     platform: {
+  //         link: 'https://www.bitget.com/ru/earning/savings?source1=earn&source2=savings',
+  //         name: 'Bybit',
+  //         icon: logoSrc,
+  //     },
+  //     rates: item.apyList,
+  //     productLevel: item.productLevel,
+  // });
+  // acc.push({
+  //     id: item.productId,
+  //     token: {
+  //         name: item.coin,
+  //         icon: logo,
+  //     },
+  //     periodType: item.periodType,
+  //     platform: {
+  //         link: 'https://share.bitget.com/u/G2556G9Q',
+  //         name: 'Bitget',
+  //         icon: logoSrc,
+  //     },
+  //     rates: item.apyList.map((item) => ({
+  //         currentApy: +item.currentApy,
+  //         rateLevel: +item.rateLevel,
+  //     })),
+  //     productLevel: item.productLevel as never as EarnItemLevel,
+  // });
 
-    // return acc;
-    // // }, []);
+  // return acc;
+  // // }, []);
 
-    return [] as EarnItem[];
+  return [] as EarnItem[];
 }
