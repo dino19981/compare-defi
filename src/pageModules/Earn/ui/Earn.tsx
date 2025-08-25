@@ -1,19 +1,15 @@
 import React from 'react';
 
+import { getEarns } from 'entities/earn';
 import { NextPage } from 'next';
 import { EarningTable } from 'widgets/EarningTable';
 
-import { getEarns } from '../lib/getEarns';
-
 export const Earn: NextPage = async () => {
-  const { data, pages } = await getEarns();
-  // const data = await getKukoinEarnings();
-  // console.log(data, 'data');
+  const { data } = await getEarns();
 
   return (
     <div>
-      {/* <EarningTable data={data} pages={2} /> */}
-      <EarningTable data={data} pages={pages} />
+      <EarningTable data={data} />
     </div>
   );
 };

@@ -1,6 +1,45 @@
 {
   "header": {
     "earning": "Earning",
-    "cryptoExchanges": "Crypto exchanges"
+    "pools": "Crypto exchanges"
+  },
+  "earn": {
+    "table": {
+      "columns": {
+        "token": "Token",
+        "apy": "APR/APY",
+        "duration": "Duration",
+        "platform": "Platform",
+        "actions": "Actions"
+      },
+      "actions": {
+        "goTo": "Go to platform"
+      },
+      "duration": {
+        "infinity": "Unlimited"
+      },
+      "filters": {
+        "token": "Search coin",
+        "platform": "Search platform"
+      }
+    },
+    "ratesSettings": {
+      "description": "Rate depends on the amount of staking"
+    },
+    "newUser": {
+      "description": "Only for new users"
+    }
+  },
+  "pagination": {
+    "rowsPerPage": "Rows per page"
+  },
+  "pluralizes": {
+    "infinity": "Unlimited",
+    "days": {
+      "one": "day",
+      "few": "days",
+      "many": "days",
+      "other": "days"
+    }
   }
 }

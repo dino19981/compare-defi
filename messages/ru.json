@@ -1,6 +1,45 @@
 {
   "header": {
     "earning": "Стейкинг",
-    "cryptoExchanges": "Крипто биржи"
+    "pools": "Пулы ликвидности"
+  },
+  "earn": {
+    "table": {
+      "columns": {
+        "token": "Монета",
+        "apy": "APR/APY",
+        "duration": "Длительность",
+        "platform": "Платформа",
+        "actions": "Действия"
+      },
+      "actions": {
+        "goTo": "Перейти на платформу"
+      },
+      "duration": {
+        "infinity": "Без ограничений"
+      },
+      "filters": {
+        "token": "Поиск монеты",
+        "platform": "Поиск платформы"
+      }
+    },
+    "ratesSettings": {
+      "description": "Ставка зависит от суммы стейкинга"
+    },
+    "newUser": {
+      "description": "Только для новых пользователей"
+    }
+  },
+  "pagination": {
+    "rowsPerPage": "Элементов на странице"
+  },
+  "pluralizes": {
+    "infinity": "Без ограничений",
+    "days": {
+      "one": "день",
+      "few": "дня",
+      "many": "дней",
+      "other": "дней"
+    }
   }
 }

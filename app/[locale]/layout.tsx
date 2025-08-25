@@ -4,7 +4,13 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Header } from 'widgets/Header/ui';
 
-export default async function LocaleLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
+export default async function LocaleLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
   // Ensure that the incoming `locale` is valid
   const { locale } = await params;
   if (!routing.locales.includes(locale as any)) {
