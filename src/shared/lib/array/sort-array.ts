@@ -1,6 +1,6 @@
 import { isDate } from 'date-fns';
+import { SortOrder } from 'shared/model/SortOrder';
 
-import { SortOrder } from '../../model/SortOrder';
 import { isDefined } from '../is-defined';
 import { isNumber } from '../number';
 import { isObject } from '../object';

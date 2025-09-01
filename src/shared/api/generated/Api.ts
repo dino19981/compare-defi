@@ -12,9 +12,9 @@
 
 export interface EarnControllerGetEarnItemsParams {
   /** Фильтрация */
-  filter: Object;
+  filter?: Object;
   /** Сортировка */
-  sort: EarnSort;
+  sort?: Sort;
 }
 
 export interface EarnItemDto {
@@ -189,9 +189,9 @@ export enum EarnItemTokenDtoNameEnum {
 
 export interface EarnRequest {
   /** Фильтрация */
-  filter: object | null;
+  filter?: object | null;
   /** Сортировка */
-  sort: EarnSort | null;
+  sort?: Sort | null;
 }
 
 export interface EarnResponseDto {
@@ -200,17 +200,6 @@ export interface EarnResponseDto {
    * @example []
    */
   data: EarnItemDto[];
-}
-
-export interface EarnSort {
-  /** @example "-1" */
-  direction: EarnSortDirectionEnum;
-}
-
-/** @example "-1" */
-export enum EarnSortDirectionEnum {
-  Value1 = 1,
-  Value11 = -1,
 }
 
 export interface HealthResponseDto {
@@ -226,24 +215,122 @@ export interface HealthResponseDto {
   timestamp: string;
 }
 
+export interface MetaDto {
+  /**
+   * Платформы
+   * @example []
+   */
+  platforms: MetaDtoPlatformsEnum[];
+}
+
+export enum MetaDtoPlatformsEnum {
+  PancakeSwap = "PancakeSwap",
+  Uniswap = "Uniswap",
+}
+
 export type Object = object;
 
+export interface PoolItemChainDto {
+  /**
+   * Урл картинки сети
+   * @example "https..."
+   */
+  imageUrl: string;
+  /**
+   * Название сети
+   * @example "Eth"
+   */
+  name: string;
+}
+
 export interface PoolItemDto {
+  /** APR */
+  apr: number;
   /**
    * Бейджи
    * @example []
    */
   badges?: PoolItemDtoBadgesEnum[];
+  /** Сеть */
+  chain: PoolItemChainDto;
+  /** Комиссия */
+  fee: string;
+  /** Первый токен */
+  firstToken: PoolItemTokenDto;
   /**
    * Уникальный идентификатор
    * @example "pool_001"
    */
   id: string;
+  /** Платформа */
+  platform: PoolItemPlatformDto;
+  /** Второй токен */
+  secondToken: PoolItemTokenDto;
+  /** TVL */
+  tvl: string;
 }
 
 export enum PoolItemDtoBadgesEnum {
   SmallLimit = "smallLimit",
   ForNewUsers = "forNewUsers",
+}
+
+export interface PoolItemPlatformDto {
+  /**
+   * Ссылка на платформу
+   * @example "https://uniswap.org"
+   */
+  link: string;
+  /**
+   * Название платформы
+   * @example "Uniswap"
+   */
+  name: PoolItemPlatformDtoNameEnum;
+  /**
+   * Ссылка на платформу с рефкой
+   * @example "https://uniswap.org/ref/CPA_00CR5Q0KBD"
+   */
+  refLink: string;
+}
+
+/**
+ * Название платформы
+ * @example "Uniswap"
+ */
+export enum PoolItemPlatformDtoNameEnum {
+  PancakeSwap = "PancakeSwap",
+  Uniswap = "Uniswap",
+}
+
+export interface PoolItemTokenDto {
+  /**
+   * Урл картинки токена
+   * @example "https..."
+   */
+  imageUrl: string;
+  /**
+   * Название токена
+   * @example "USDC"
+   */
+  name: string;
+}
+
+export interface PoolRequest {
+  /** Фильтрация */
+  filter?: object | null;
+  /** Кол-во элементов на странице */
+  limit: number;
+  /** Сортировка */
+  sort?: Sort | null;
+}
+
+export interface PoolsControllerGetPoolItemsParams {
+  /** Фильтрация */
+  filter?: Object;
+  /** Кол-во элементов на странице */
+  limit: number;
+  /** Сортировка */
+  sort?: Sort;
 }
 
 export interface PoolsResponseDto {
@@ -252,6 +339,33 @@ export interface PoolsResponseDto {
    * @example []
    */
   data: PoolItemDto[];
+  /**
+   * Мета
+   * @example {"platforms":["PancakeSwap","Uniswap"]}
+   */
+  meta: MetaDto;
+}
+
+export interface Sort {
+  /**
+   * Направление сортировки
+   * @example "desc"
+   */
+  direction: SortDirectionEnum;
+  /**
+   * Поле для сортировки
+   * @example "maxRate"
+   */
+  field: string;
+}
+
+/**
+ * Направление сортировки
+ * @example "desc"
+ */
+export enum SortDirectionEnum {
+  Asc = "asc",
+  Desc = "desc",
 }
 
 export namespace Health {
@@ -285,9 +399,9 @@ export namespace Earn {
     export type RequestParams = {};
     export type RequestQuery = {
       /** Фильтрация */
-      filter: Object;
+      filter?: Object;
       /** Сортировка */
-      sort: EarnSort;
+      sort?: Sort;
     };
     export type RequestBody = EarnRequest;
     export type RequestHeaders = {};
@@ -322,8 +436,15 @@ export namespace Pools {
    */
   export namespace PoolsControllerGetPoolItems {
     export type RequestParams = {};
-    export type RequestQuery = {};
-    export type RequestBody = never;
+    export type RequestQuery = {
+      /** Фильтрация */
+      filter?: Object;
+      /** Кол-во элементов на странице */
+      limit: number;
+      /** Сортировка */
+      sort?: Sort;
+    };
+    export type RequestBody = PoolRequest;
     export type RequestHeaders = {};
     export type ResponseBody = PoolsResponseDto;
   }
@@ -339,7 +460,7 @@ export namespace Pools {
   export namespace PoolsControllerGetPoolsItemsWithoutJob {
     export type RequestParams = {};
     export type RequestQuery = {};
-    export type RequestBody = never;
+    export type RequestBody = PoolRequest;
     export type RequestHeaders = {};
     export type ResponseBody = PoolsResponseDto;
   }
@@ -605,10 +726,17 @@ export class Api<SecurityDataType extends unknown> {
      * @request GET:/pools
      * @response `200` `PoolsResponseDto`
      */
-    poolsControllerGetPoolItems: (params: RequestParams = {}) =>
+    poolsControllerGetPoolItems: (
+      query: PoolsControllerGetPoolItemsParams,
+      data: PoolRequest,
+      params: RequestParams = {},
+    ) =>
       this.http.request<PoolsResponseDto, any>({
         path: `/pools`,
         method: "GET",
+        query: query,
+        body: data,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),
@@ -622,10 +750,15 @@ export class Api<SecurityDataType extends unknown> {
      * @request GET:/pools/without-job
      * @response `200` `PoolsResponseDto`
      */
-    poolsControllerGetPoolsItemsWithoutJob: (params: RequestParams = {}) =>
+    poolsControllerGetPoolsItemsWithoutJob: (
+      data: PoolRequest,
+      params: RequestParams = {},
+    ) =>
       this.http.request<PoolsResponseDto, any>({
         path: `/pools/without-job`,
         method: "GET",
+        body: data,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),

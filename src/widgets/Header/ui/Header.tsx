@@ -15,7 +15,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 
+import { Link } from 'i18n/navigation';
 import { useTranslations } from 'next-intl';
+import { Routes } from 'shared/config';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -25,7 +27,16 @@ export const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-  const pages = [t('earning'), t('pools')];
+  const pages = [
+    {
+      label: t('earning'),
+      href: Routes.Earn,
+    },
+    {
+      label: t('pools'),
+      href: Routes.Pools,
+    },
+  ];
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -94,8 +105,8 @@ export const Header = () => {
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                <MenuItem key={page.href} onClick={handleCloseNavMenu}>
+                  <Link href={page.href}>{page.label}</Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -122,11 +133,13 @@ export const Header = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.href}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
+                component={Link}
+                href={page.href}
               >
-                {page}
+                {page.label}
               </Button>
             ))}
           </Box>

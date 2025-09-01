@@ -1,7 +1,6 @@
 import { Link, Stack } from '@mui/material';
 
 import { DurationCellContent, EarnItem, RatesSettingsTooltip } from 'entities/earn';
-import { formatPercentage } from 'shared/lib/formatter';
 import { LogoWithName } from 'shared/ui/LogoWithName';
 import { TableCellProps } from 'shared/ui/Table';
 import { v4 as uuid } from 'uuid';
@@ -37,7 +36,6 @@ export const formatBodyData = (
     return emptyRow;
   }
 
-  const rates = formatPercentage(data.maxRate);
   // const rates = data?.rateSettings?.length
   //   ? getMinAndMaxRate(data.rateSettings)
   //   : formatPercentage(data.maxRate);
@@ -57,7 +55,7 @@ export const formatBodyData = (
     {
       children: (
         <>
-          {rates}
+          {data.maxRate}
           {!!data?.rateSettings?.length && (
             <RatesSettingsTooltip ratesSettings={data.rateSettings} token={data.token} />
           )}

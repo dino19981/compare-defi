@@ -1,10 +1,10 @@
 import { TableSortLabel } from '@mui/material';
 
-import { SortOrder } from 'shared/model/SortOrder';
+import { SortDirectionEnum } from 'shared/api/generated/Api';
 import { TableCellProps } from 'shared/ui/Table';
 
 export const getTableHeaderCells = (
-  order: SortOrder,
+  order: SortDirectionEnum | undefined,
   orderBy: string | undefined,
   onChange: (_: React.MouseEvent<unknown>, property: string) => void,
   t: (key: string, values?: { count?: number }) => string,
@@ -18,9 +18,9 @@ export const getTableHeaderCells = (
     {
       children: (
         <TableSortLabel
-          active={orderBy === 'rates'}
-          direction={orderBy === 'rates' ? getTableSortOrder(order) : 'asc'}
-          onClick={(e) => onChange(e, 'rates')}
+          active={orderBy === 'maxRate' && !!order}
+          direction={order}
+          onClick={(e) => onChange(e, 'maxRate')}
         >
           {t('columns.apy')}
         </TableSortLabel>
@@ -37,7 +37,3 @@ export const getTableHeaderCells = (
     { children: '', key: 'actions', size: 'small' },
   ];
 };
-
-function getTableSortOrder(order: SortOrder) {
-  return order === SortOrder.Desc ? 'desc' : 'asc';
-}

@@ -1,5 +1,6 @@
 import { axiosInstance } from 'shared/api';
 import { EarnControllerGetEarnItemsParams, EarnResponseDto } from 'shared/api/generated/Api';
+import { formatPercentage } from 'shared/lib';
 import { getCompanyLogoByName } from 'shared/lib/getCompanyLogoByName';
 import { getTokenLogoByName } from 'shared/lib/getTokenLogoByName';
 
@@ -19,8 +20,11 @@ export const getEarns = async (params?: EarnControllerGetEarnItemsParams) => {
 };
 
 function mapToFrontendData(earns: EarnResponseDto['data']): EarnItem[] {
+  console.log(earns[0].maxRate, formatPercentage(earns[0].maxRate), 'earnsearnsearns');
+
   return earns.map((earn) => ({
     ...earn,
+    maxRate: formatPercentage(earn.maxRate) ?? 'not defined',
     token: {
       name: earn.token.name,
       icon: getTokenLogoByName(earn.token.name),

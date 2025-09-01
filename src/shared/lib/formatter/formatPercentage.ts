@@ -1,3 +1,9 @@
-export const formatPercentage = (value: number) => {
-  return `${value.toFixed(2)}%`;
+import { isDefined } from '../is-defined';
+
+export const formatPercentage = (value: string | number | null | undefined): string | null => {
+  if (!isDefined(value)) {
+    return null;
+  }
+
+  return `${Number(value).toFixed(2)}%`;
 };

@@ -7,13 +7,13 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 
 import { EarnItem } from 'entities/earn';
+import { useGetEarns } from 'entities/earn/lib';
 import { useTranslations } from 'next-intl';
 import { Table, TableCellProps, TablePagination } from 'shared/ui/Table';
 import { useTableSort } from 'shared/ui/Table/lib';
 
-import { formatBodyData, getSortKey, getTableHeaderCells, getVisibleRowsByPage } from '../lib';
-import { EarningTableTokensFilter } from './components';
-import { EarningTablePlatformsFilter } from './components/EarningTablePlatformsFilter/EarningTablePlatformsFilter';
+import { formatBodyData, getTableHeaderCells, getVisibleRowsByPage } from '../lib';
+import { EarningTablePlatformsFilter, EarningTableTokensFilter } from './components';
 
 interface Props {
   data: EarnItem[];
@@ -23,36 +23,41 @@ export const EarningTable = ({ data }: Props) => {
   const t = useTranslations('earn.table');
 
   const {
-    sortedData,
     order,
     orderBy,
-    pages,
     page,
     perPage,
+    sort,
+    filters,
     onChangeSort,
     setFilters,
     setPage,
     setPerPage,
   } = useTableSort({
-    data,
-    defaultOrderBy: 'rates',
-    getSortKey,
+    defaultOrderBy: 'maxRate',
     defaultPerPage: 10,
   });
 
+  const { data: earns } = useGetEarns(data, {
+    sort,
+    filter: filters,
+  });
+
+  const items = earns?.data || data;
+
+  const pages = Math.ceil(items.length / perPage);
+
   const bodyRows = useMemo(
     () =>
-      getVisibleRowsByPage(sortedData, data.length, page, perPage).map((item) =>
+      getVisibleRowsByPage(items, data.length, page, perPage).map((item) =>
         formatBodyData(item, t),
       ),
-    [sortedData, page, t, perPage],
+    [items, page, t, perPage],
   );
   const headCells = useMemo<TableCellProps[]>(
     () => getTableHeaderCells(order, orderBy, onChangeSort, t),
     [order, orderBy, onChangeSort, t],
   );
-
-  console.log(sortedData, page, 'sortedDatasortedDatasortedData');
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -60,11 +65,11 @@ export const EarningTable = ({ data }: Props) => {
         <Toolbar>
           <EarningTableTokensFilter
             data={data}
-            onChange={(value) => setFilters((prev) => ({ ...prev, 'token.name': value }))}
+            onChange={(value) => setFilters((prev) => ({ ...prev, tokenName: value }))}
           />
           <EarningTablePlatformsFilter
             data={data}
-            onChange={(value) => setFilters((prev) => ({ ...prev, 'platform.name': value }))}
+            onChange={(value) => setFilters((prev) => ({ ...prev, platformName: value }))}
           />
         </Toolbar>
         {/* <button onClick={sendMessage}>ewqe</button> */}

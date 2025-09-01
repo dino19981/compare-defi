@@ -1,5 +1,9 @@
 import { StaticImageData } from 'next/image';
-import { EarnItemPlatformDtoNameEnum } from 'shared/api/generated/Api';
+import {
+  EarnItemPlatformDtoNameEnum,
+  MetaDtoPlatformsEnum,
+  PoolItemPlatformDtoNameEnum,
+} from 'shared/api/generated/Api';
 
 import binance from '../assets/companies/binance.svg';
 import bingx from '../assets/companies/bingX.svg';
@@ -13,11 +17,13 @@ import mellow from '../assets/companies/mellow.svg';
 import mexc from '../assets/companies/mexc.svg';
 import navi from '../assets/companies/navi.svg';
 import okx from '../assets/companies/okx.svg';
+import pancakeSwap from '../assets/companies/pancakeswap.svg';
 import spark from '../assets/companies/spark.svg';
+import uniswap from '../assets/companies/uniswap.svg';
 import venus from '../assets/companies/venus.svg';
 
 // https://cryptologos.cc/
-const companyLogos: Record<EarnItemPlatformDtoNameEnum, string> = {
+const companyLogos: Record<EarnItemPlatformDtoNameEnum | PoolItemPlatformDtoNameEnum, string> = {
   [EarnItemPlatformDtoNameEnum.Bitget]: bitget,
   [EarnItemPlatformDtoNameEnum.Bybit]: bybit,
   [EarnItemPlatformDtoNameEnum.Htx]: htx,
@@ -32,10 +38,12 @@ const companyLogos: Record<EarnItemPlatformDtoNameEnum, string> = {
   [EarnItemPlatformDtoNameEnum.Navi]: navi,
   [EarnItemPlatformDtoNameEnum.Spark]: spark,
   [EarnItemPlatformDtoNameEnum.Venus]: venus,
+  [PoolItemPlatformDtoNameEnum.PancakeSwap]: pancakeSwap,
+  [PoolItemPlatformDtoNameEnum.Uniswap]: uniswap,
 };
 
 export const getCompanyLogoByName = (
-  companyName: EarnItemPlatformDtoNameEnum,
+  companyName: EarnItemPlatformDtoNameEnum | PoolItemPlatformDtoNameEnum | MetaDtoPlatformsEnum,
 ): string | StaticImageData => {
   return companyLogos[companyName];
 };

@@ -1,0 +1,19 @@
+.cardContentItem {
+  display: flex;
+  width: 100%;
+  gap: 5px;
+}
+
+.title {
+  font-size: 12px;
+  font-weight: 400;
+  color: #808080;
+  flex: 1;
+}
+
+.value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  width: fit-content;
+}
