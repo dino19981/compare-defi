@@ -29,9 +29,10 @@ export const generateLocalizedMetadata = async ({
       title: 'Сравнение стейкинга криптовалют',
       description: 'Лучшие ставки и условия стейкинга криптовалют – выберите оптимальный вариант.',
       url: `${process.env.BASE_URL}/${locale}${link}`,
-      siteName: 'CompareDefi',
+      siteName: 'compare-defi',
       type: 'website',
     },
+
     // twitter: {
     //   card: 'summary_large_image',
     //   title: 'Сравнение стейкинга криптовалют',

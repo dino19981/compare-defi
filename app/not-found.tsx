@@ -1,6 +1,11 @@
 import Link from 'next/link';
+import { getServerSidePathname } from 'shared/lib/serverUtils';
 
-export default function NotFound() {
+export default async function NotFound() {
+  const pathname = await getServerSidePathname();
+
+  console.log('pathnamepathnamepathname', pathname);
+
   return (
     <div>
       <h2>Not Found</h2>

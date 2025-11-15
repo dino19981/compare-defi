@@ -304,6 +304,15 @@ export enum LendingPlatformNameDtoNameEnum {
   Aave = "Aave",
 }
 
+export interface LendingRequest {
+  /** Фильтрация */
+  filter?: object | null;
+  /** Кол-во элементов на странице */
+  limit: number;
+  /** Сортировка */
+  sort?: Sort | null;
+}
+
 export interface LendingResponseDto {
   /**
    * Список лендингов
@@ -322,13 +331,8 @@ export interface LendingsControllerGetPoolItemsParams {
   filter?: Object;
   /** Кол-во элементов на странице */
   limit: number;
-  query?: any;
   /** Сортировка */
   sort?: Sort;
-}
-
-export interface LendingsControllerGetPoolsItemsWithoutJobParams {
-  query?: any;
 }
 
 export interface MetaDto {
@@ -428,20 +432,26 @@ export interface PoolItemTokenDto {
   name: string;
 }
 
+export interface PoolRequest {
+  /** Фильтрация */
+  filter?: object | null;
+  /** лимит */
+  limit: number;
+  /** сдвиг */
+  skip: number;
+  /** Сортировка */
+  sort?: Sort | null;
+}
+
 export interface PoolsControllerGetPoolItemsParams {
   /** Фильтрация */
   filter?: Object;
   /** лимит */
   limit: number;
-  query?: any;
   /** сдвиг */
   skip: number;
   /** Сортировка */
   sort?: Sort;
-}
-
-export interface PoolsControllerGetPoolsItemsWithoutJobParams {
-  query?: any;
 }
 
 export interface PoolsResponseDto {
@@ -460,6 +470,62 @@ export interface PoolsResponseDto {
    * @example {"totalItems":100}
    */
   pagination: PaginationDto;
+}
+
+export interface SeoControllerGetPoolItemsParams {
+  language: string;
+  pathname: string;
+}
+
+export interface SeoDto {
+  /** description */
+  description: string;
+  /** faq */
+  faq: SeoFaqDto;
+  /** SEO head */
+  head: SeoHeadDto;
+  /** inner links */
+  innerLinks: string[];
+  /** Page description */
+  pageDescription: string[];
+  /** title */
+  title: string;
+}
+
+export interface SeoFaqDto {
+  /**
+   * Items
+   * @example "Items"
+   */
+  items: string[];
+  /**
+   * Title
+   * @example "Title"
+   */
+  title: string;
+}
+
+export interface SeoHeadDto {
+  /**
+   * SEO description
+   * @example "SEO description"
+   */
+  description: string;
+  /**
+   * SEO title
+   * @example "SEO title"
+   */
+  title: string;
+}
+
+export interface SeoRequestDto {
+  language: string;
+  pathname: string;
+}
+
+export interface SeoResponseDto {
+  data: SeoDto;
+  pathname: string;
 }
 
 export interface Sort {
@@ -561,7 +627,6 @@ export namespace Pools {
       filter?: Object;
       /** лимит */
       limit: number;
-      query?: any;
       /** сдвиг */
       skip: number;
       /** Сортировка */
@@ -582,9 +647,7 @@ export namespace Pools {
    */
   export namespace PoolsControllerGetPoolsItemsWithoutJob {
     export type RequestParams = {};
-    export type RequestQuery = {
-      query?: any;
-    };
+    export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {};
     export type ResponseBody = PoolsResponseDto;
@@ -622,7 +685,6 @@ export namespace Lending {
       filter?: Object;
       /** Кол-во элементов на странице */
       limit: number;
-      query?: any;
       /** Сортировка */
       sort?: Sort;
     };
@@ -641,12 +703,31 @@ export namespace Lending {
    */
   export namespace LendingsControllerGetPoolsItemsWithoutJob {
     export type RequestParams = {};
-    export type RequestQuery = {
-      query?: any;
-    };
+    export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {};
     export type ResponseBody = LendingResponseDto;
+  }
+}
+
+export namespace Seo {
+  /**
+   * No description
+   * @tags SeoController
+   * @name SeoControllerGetPoolItems
+   * @summary Получить SEO для страницы
+   * @request GET:/seo
+   * @response `200` `SeoResponseDto`
+   */
+  export namespace SeoControllerGetPoolItems {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      language: string;
+      pathname: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {};
+    export type ResponseBody = SeoResponseDto;
   }
 }
 
@@ -931,14 +1012,10 @@ export class Api<SecurityDataType extends unknown> {
      * @request GET:/pools/without-job
      * @response `200` `PoolsResponseDto`
      */
-    poolsControllerGetPoolsItemsWithoutJob: (
-      query: PoolsControllerGetPoolsItemsWithoutJobParams,
-      params: RequestParams = {},
-    ) =>
+    poolsControllerGetPoolsItemsWithoutJob: (params: RequestParams = {}) =>
       this.http.request<PoolsResponseDto, any>({
         path: `/pools/without-job`,
         method: "GET",
-        query: query,
         format: "json",
         ...params,
       }),
@@ -989,12 +1066,30 @@ export class Api<SecurityDataType extends unknown> {
      * @request GET:/lending/without-job
      * @response `200` `LendingResponseDto`
      */
-    lendingsControllerGetPoolsItemsWithoutJob: (
-      query: LendingsControllerGetPoolsItemsWithoutJobParams,
-      params: RequestParams = {},
-    ) =>
+    lendingsControllerGetPoolsItemsWithoutJob: (params: RequestParams = {}) =>
       this.http.request<LendingResponseDto, any>({
         path: `/lending/without-job`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+  };
+  seo = {
+    /**
+     * No description
+     *
+     * @tags SeoController
+     * @name SeoControllerGetPoolItems
+     * @summary Получить SEO для страницы
+     * @request GET:/seo
+     * @response `200` `SeoResponseDto`
+     */
+    seoControllerGetPoolItems: (
+      query: SeoControllerGetPoolItemsParams,
+      params: RequestParams = {},
+    ) =>
+      this.http.request<SeoResponseDto, any>({
+        path: `/seo`,
         method: "GET",
         query: query,
         format: "json",

@@ -3,17 +3,27 @@ import { fetchEarnItemsDefaultParams } from 'entities/earn/constants';
 import { getSeoForPage } from 'entities/seo/api/getSeoForPage';
 import { Metadata } from 'next';
 import Head from 'next/head';
+import { notFound } from 'next/navigation';
 import { EarnPage } from 'pageModules/Earn';
-import { Routes } from 'shared/config';
-import { ParamsWithLocale } from 'shared/model';
+import { Routes, earnRoutesList } from 'shared/config';
 import { LayoutContainer } from 'shared/ui';
 import { SeoBlocks } from 'widgets/SeoBlocks';
 
+interface ParamsWithLocale {
+  params: Promise<{ locale: string; earnAlias: string }>;
+}
+
 export async function generateMetadata({ params }: ParamsWithLocale): Promise<Metadata | null> {
-  const { locale } = await params;
+  const { earnAlias, locale } = await params;
+
+  const pathname = `${Routes.Earn}/${earnAlias}`;
+
+  if (!earnRoutesList.includes(pathname)) {
+    return null;
+  }
 
   const seo = await getSeoForPage({
-    pathname: Routes.Earn,
+    pathname,
     language: locale,
   });
 
@@ -23,14 +33,14 @@ export async function generateMetadata({ params }: ParamsWithLocale): Promise<Me
       description: seo.head.description,
     }),
     alternates: {
-      canonical: `${process.env.BASE_URL}/${locale}${Routes.Earn}`,
+      canonical: `${process.env.BASE_URL}/${locale}${Routes.Earn}/${earnAlias}`,
     },
     openGraph: {
       title: seo?.head?.title || 'Сравнение стейкинга криптовалют',
       description:
         seo?.head?.description ||
         'Лучшие ставки и условия стейкинга криптовалют – выберите оптимальный вариант.',
-      url: `${process.env.BASE_URL}/${locale}${Routes.Earn}`,
+      url: `${process.env.BASE_URL}/${locale}${Routes.Earn}/${earnAlias}`,
       siteName: 'compare-defi',
       type: 'website',
     },
@@ -43,16 +53,21 @@ export async function generateMetadata({ params }: ParamsWithLocale): Promise<Me
   };
 }
 
-// Настройка TTL для страницы - обновление раз в час
 export const revalidate = 600; // 10 минут
 
 const Page = async ({ params }: ParamsWithLocale) => {
-  const { locale } = await params;
+  const { earnAlias, locale } = await params;
+
+  const pathname = `${Routes.Earn}/${earnAlias}`;
+
+  if (!earnRoutesList.includes(pathname)) {
+    notFound();
+  }
 
   const [earns, seo] = await Promise.all([
     getEarns(fetchEarnItemsDefaultParams),
     getSeoForPage({
-      pathname: Routes.Earn,
+      pathname,
       language: locale,
     }),
   ]);
@@ -60,8 +75,8 @@ const Page = async ({ params }: ParamsWithLocale) => {
   return (
     <div>
       <Head>
-        <link rel="alternate" href={`${process.env.BASE_URL}/en${Routes.Earn}`} hrefLang="en" />
-        <link rel="alternate" href={`${process.env.BASE_URL}/ru${Routes.Earn}`} hrefLang="ru" />
+        <link rel="alternate" href={`${process.env.BASE_URL}/en${pathname}`} hrefLang="en" />
+        <link rel="alternate" href={`${process.env.BASE_URL}/ru${pathname}`} hrefLang="ru" />
       </Head>
 
       <LayoutContainer>

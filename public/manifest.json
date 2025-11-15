@@ -1,0 +1,9 @@
+{
+  "name": "compare-defi",
+  "short_name": "compare-defi",
+  "start_url": "/en/earn",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": []
+}

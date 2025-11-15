@@ -24,6 +24,20 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
+      {/* <Head>
+        
+         {preloadedFonts.map((font) => (
+          <link
+            rel="preload"
+            href={font.url}
+            as="font"
+            type={font.type}
+            crossOrigin="anonymous"
+            key={font.url}
+            fetchPriority="high"
+          />
+        ))} 
+      </Head>*/}
       <Header />
 
       {children}

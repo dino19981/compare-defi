@@ -15,7 +15,7 @@ interface Props {
   data: GetEarnsResponse;
 }
 
-export const EarnPage = ({ data: initialData }: Props) => {
+export const EarnClientContent = ({ data: initialData }: Props) => {
   const [view, setView] = useState<BaseView>(() => {
     const config = localStorage.getItem(EARN_CONFIG_LOCALSTORAGE_NAME);
 
