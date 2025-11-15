@@ -4,6 +4,8 @@ import React, { ReactNode } from 'react';
 
 import { Chip } from '@mui/material';
 
+import classNames from 'classnames';
+
 import styles from './Card.module.scss';
 
 interface Badge {
@@ -16,16 +18,23 @@ interface Props {
   badges?: Badge[];
   children: ReactNode;
   footer: ReactNode;
+
+  onClick?: () => void;
 }
 
-export const Card = ({ header, badges, children, footer }: Props) => {
+export const Card = ({ header, badges, children, footer, onClick }: Props) => {
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={onClick}>
       {header}
       {badges && (
-        <div className={styles.badge}>
+        <div className={styles.badges}>
           {badges.map((badge) => (
-            <Chip key={badge.text} label={badge.text} size="small" className={badge.className} />
+            <Chip
+              key={badge.text}
+              label={badge.text}
+              size="small"
+              className={classNames(styles.badge, badge.className)}
+            />
           ))}
         </div>
       )}

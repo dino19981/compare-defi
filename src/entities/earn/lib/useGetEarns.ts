@@ -4,21 +4,16 @@ import { EarnControllerGetEarnItemsParams } from 'shared/api/generated/Api';
 import { QueryKeys } from 'shared/config';
 
 import { getEarns } from '../api';
-import { EarnItem } from '../types';
+import { GetEarnsResponse } from '../types';
 
 export const useGetEarns = (
-  defaultValues: EarnItem[],
+  defaultValues: GetEarnsResponse,
   params: EarnControllerGetEarnItemsParams,
 ) => {
   return useQuery({
     queryKey: [QueryKeys.Earn, params],
     queryFn: async () => getEarns(params),
     retry: false,
-    // placeholderData: {
-    //   data: defaultValues,
-    // },
-    // initialData: {
-    //   data: defaultValues,
-    // },
+    placeholderData: (previousData = defaultValues) => previousData,
   });
 };

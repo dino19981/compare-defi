@@ -3,3 +3,8 @@ export { Table } from './Table';
 export { Card } from './Card';
 export { Input } from './Input/Input';
 export { Loader } from './Loader/Loader';
+export { DoubleLogoWithNames } from './DoubleLogoWithNames';
+export { CardTableToggler, BaseView } from './CardTableToggler';
+export { LastUpdateTime } from './LastUpdateTime';
+export { LayoutContainer } from './LayoutContainer';
+export { ShowMoreButton } from './ShowMoreButton';

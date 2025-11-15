@@ -6,9 +6,7 @@ import { Tooltip } from '@mui/material';
 
 import { useTranslations } from 'next-intl';
 
-interface Props {}
-
-export const ForNewUserTooltip = ({}: Props) => {
+export const ForNewUserTooltip = () => {
   const t = useTranslations('earn.newUser');
 
   return (

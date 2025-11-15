@@ -1,0 +1,1 @@
+export const POOL_ITEMS_DEFAULT_LIMIT = 40;

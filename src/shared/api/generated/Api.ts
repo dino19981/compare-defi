@@ -10,9 +10,26 @@
  * ---------------------------------------------------------------
  */
 
+export interface ChainDto {
+  /**
+   * Урл картинки сети
+   * @example "https..."
+   */
+  imageUrl: string;
+  /**
+   * Название сети
+   * @example "Eth"
+   */
+  name: string;
+}
+
 export interface EarnControllerGetEarnItemsParams {
   /** Фильтрация */
   filter?: Object;
+  /** лимит */
+  limit: number;
+  /** сдвиг */
+  skip: number;
   /** Сортировка */
   sort?: Sort;
 }
@@ -156,40 +173,49 @@ export enum EarnItemRateSettingsDtoMaxEnum {
 
 export interface EarnItemTokenDto {
   /**
+   * Урл картинки токена
+   * @example "https://example.com/token.png"
+   */
+  icon: string;
+  /**
    * Название токена
    * @example "BTC"
    */
-  name: EarnItemTokenDtoNameEnum;
+  name: string;
 }
 
-/**
- * Название токена
- * @example "BTC"
- */
-export enum EarnItemTokenDtoNameEnum {
-  USDT = "USDT",
-  SuiUSDT = "suiUSDT",
-  WUSDT = "wUSDT",
-  USDC = "USDC",
-  WUSDC = "wUSDC",
-  ETH = "ETH",
-  WETH = "WETH",
-  SuiETH = "suiETH",
-  BTC = "BTC",
-  SuiWBTC = "suiWBTC",
-  WBTC = "WBTC",
-  LBTC = "LBTC",
-  USDE = "USDE",
-  SOL = "SOL",
-  SUI = "SUI",
-  VSUI = "vSUI",
-  StSUI = "stSUI",
-  HaSUI = "haSUI",
+export interface EarnMetaDto {
+  /**
+   * Платформы
+   * @example []
+   */
+  platforms: string[];
+  /** токены */
+  tokens: EarnMetaTokenDto[];
+  /**
+   * Общее количество пулов
+   * @example 0
+   */
+  totalItems: number;
+}
+
+export interface EarnMetaTokenDto {
+  /**
+   * Урл картинки токена
+   * @example "https://example.com/token.png"
+   */
+  icon: string;
+  /** Название токена */
+  name: string;
 }
 
 export interface EarnRequest {
   /** Фильтрация */
   filter?: object | null;
+  /** лимит */
+  limit: number;
+  /** сдвиг */
+  skip: number;
   /** Сортировка */
   sort?: Sort | null;
 }
@@ -200,6 +226,16 @@ export interface EarnResponseDto {
    * @example []
    */
   data: EarnItemDto[];
+  /**
+   * Мета
+   * @example {"platforms":["binance","bybit","okx"],"totalItems":100}
+   */
+  meta: EarnMetaDto;
+  /**
+   * Пагинация
+   * @example {"totalItems":100}
+   */
+  pagination: PaginationDto;
 }
 
 export interface HealthResponseDto {
@@ -215,32 +251,107 @@ export interface HealthResponseDto {
   timestamp: string;
 }
 
+export interface LendingDto {
+  /** APR */
+  apr: number;
+  /**
+   * Бейджи
+   * @example []
+   */
+  badges?: string[];
+  /** Сеть */
+  chain: ChainDto;
+  /** Комиссия */
+  fee: string;
+  /** Первый токен */
+  firstToken: PoolItemTokenDto;
+  /**
+   * Уникальный идентификатор
+   * @example "pool_001"
+   */
+  id: string;
+  /** Платформа */
+  platform: LendingPlatformNameDto;
+  /** Второй токен */
+  secondToken: PoolItemTokenDto;
+  /** TVL */
+  tvl: string;
+}
+
+export interface LendingPlatformNameDto {
+  /**
+   * Ссылка на платформу
+   * @example "https://uniswap.org"
+   */
+  link: string;
+  /**
+   * Название платформы
+   * @example "Uniswap"
+   */
+  name: LendingPlatformNameDtoNameEnum;
+  /**
+   * Ссылка на платформу с рефкой
+   * @example "https://uniswap.org/ref/CPA_00CR5Q0KBD"
+   */
+  refLink: string;
+}
+
+/**
+ * Название платформы
+ * @example "Uniswap"
+ */
+export enum LendingPlatformNameDtoNameEnum {
+  Aave = "Aave",
+}
+
+export interface LendingResponseDto {
+  /**
+   * Список лендингов
+   * @example []
+   */
+  data: LendingDto[];
+  /**
+   * Мета
+   * @example {"platforms":["Aave"]}
+   */
+  meta: MetaDto;
+}
+
+export interface LendingsControllerGetPoolItemsParams {
+  /** Фильтрация */
+  filter?: Object;
+  /** Кол-во элементов на странице */
+  limit: number;
+  query?: any;
+  /** Сортировка */
+  sort?: Sort;
+}
+
+export interface LendingsControllerGetPoolsItemsWithoutJobParams {
+  query?: any;
+}
+
 export interface MetaDto {
   /**
    * Платформы
    * @example []
    */
-  platforms: MetaDtoPlatformsEnum[];
-}
-
-export enum MetaDtoPlatformsEnum {
-  PancakeSwap = "PancakeSwap",
-  Uniswap = "Uniswap",
+  platforms: string[];
+  /**
+   * Общее количество пулов
+   * @example 0
+   */
+  totalItems: number;
 }
 
 export type Object = object;
 
-export interface PoolItemChainDto {
+export interface PaginationDto {
   /**
-   * Урл картинки сети
-   * @example "https..."
+   * Общее количество элементов
+   * @example 0
    */
-  imageUrl: string;
-  /**
-   * Название сети
-   * @example "Eth"
-   */
-  name: string;
+  total: number;
 }
 
 export interface PoolItemDto {
@@ -252,7 +363,7 @@ export interface PoolItemDto {
    */
   badges?: PoolItemDtoBadgesEnum[];
   /** Сеть */
-  chain: PoolItemChainDto;
+  chain: ChainDto;
   /** Комиссия */
   fee: string;
   /** Первый токен */
@@ -300,6 +411,8 @@ export interface PoolItemPlatformDto {
 export enum PoolItemPlatformDtoNameEnum {
   PancakeSwap = "PancakeSwap",
   Uniswap = "Uniswap",
+  Cetus = "Cetus",
+  Raydium = "Raydium",
 }
 
 export interface PoolItemTokenDto {
@@ -315,22 +428,20 @@ export interface PoolItemTokenDto {
   name: string;
 }
 
-export interface PoolRequest {
-  /** Фильтрация */
-  filter?: object | null;
-  /** Кол-во элементов на странице */
-  limit: number;
-  /** Сортировка */
-  sort?: Sort | null;
-}
-
 export interface PoolsControllerGetPoolItemsParams {
   /** Фильтрация */
   filter?: Object;
-  /** Кол-во элементов на странице */
+  /** лимит */
   limit: number;
+  query?: any;
+  /** сдвиг */
+  skip: number;
   /** Сортировка */
   sort?: Sort;
+}
+
+export interface PoolsControllerGetPoolsItemsWithoutJobParams {
+  query?: any;
 }
 
 export interface PoolsResponseDto {
@@ -344,6 +455,11 @@ export interface PoolsResponseDto {
    * @example {"platforms":["PancakeSwap","Uniswap"]}
    */
   meta: MetaDto;
+  /**
+   * Пагинация
+   * @example {"totalItems":100}
+   */
+  pagination: PaginationDto;
 }
 
 export interface Sort {
@@ -400,6 +516,10 @@ export namespace Earn {
     export type RequestQuery = {
       /** Фильтрация */
       filter?: Object;
+      /** лимит */
+      limit: number;
+      /** сдвиг */
+      skip: number;
       /** Сортировка */
       sort?: Sort;
     };
@@ -439,12 +559,15 @@ export namespace Pools {
     export type RequestQuery = {
       /** Фильтрация */
       filter?: Object;
-      /** Кол-во элементов на странице */
+      /** лимит */
       limit: number;
+      query?: any;
+      /** сдвиг */
+      skip: number;
       /** Сортировка */
       sort?: Sort;
     };
-    export type RequestBody = PoolRequest;
+    export type RequestBody = never;
     export type RequestHeaders = {};
     export type ResponseBody = PoolsResponseDto;
   }
@@ -459,10 +582,71 @@ export namespace Pools {
    */
   export namespace PoolsControllerGetPoolsItemsWithoutJob {
     export type RequestParams = {};
-    export type RequestQuery = {};
-    export type RequestBody = PoolRequest;
+    export type RequestQuery = {
+      query?: any;
+    };
+    export type RequestBody = never;
     export type RequestHeaders = {};
     export type ResponseBody = PoolsResponseDto;
+  }
+
+  /**
+   * No description
+   * @tags pools
+   * @name PoolsControllerSaveTokens
+   * @request GET:/pools/save-tokens
+   * @response `200` `void`
+   */
+  export namespace PoolsControllerSaveTokens {
+    export type RequestParams = {};
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {};
+    export type ResponseBody = void;
+  }
+}
+
+export namespace Lending {
+  /**
+   * No description
+   * @tags LendingsController
+   * @name LendingsControllerGetPoolItems
+   * @summary Получить список лэндингов
+   * @request GET:/lending
+   * @response `200` `LendingResponseDto`
+   */
+  export namespace LendingsControllerGetPoolItems {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      /** Фильтрация */
+      filter?: Object;
+      /** Кол-во элементов на странице */
+      limit: number;
+      query?: any;
+      /** Сортировка */
+      sort?: Sort;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {};
+    export type ResponseBody = LendingResponseDto;
+  }
+
+  /**
+   * No description
+   * @tags LendingsController
+   * @name LendingsControllerGetPoolsItemsWithoutJob
+   * @summary Получить список лэндингов без job
+   * @request GET:/lending/without-job
+   * @response `200` `LendingResponseDto`
+   */
+  export namespace LendingsControllerGetPoolsItemsWithoutJob {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      query?: any;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {};
+    export type ResponseBody = LendingResponseDto;
   }
 }
 
@@ -728,15 +912,12 @@ export class Api<SecurityDataType extends unknown> {
      */
     poolsControllerGetPoolItems: (
       query: PoolsControllerGetPoolItemsParams,
-      data: PoolRequest,
       params: RequestParams = {},
     ) =>
       this.http.request<PoolsResponseDto, any>({
         path: `/pools`,
         method: "GET",
         query: query,
-        body: data,
-        type: ContentType.Json,
         format: "json",
         ...params,
       }),
@@ -751,14 +932,71 @@ export class Api<SecurityDataType extends unknown> {
      * @response `200` `PoolsResponseDto`
      */
     poolsControllerGetPoolsItemsWithoutJob: (
-      data: PoolRequest,
+      query: PoolsControllerGetPoolsItemsWithoutJobParams,
       params: RequestParams = {},
     ) =>
       this.http.request<PoolsResponseDto, any>({
         path: `/pools/without-job`,
         method: "GET",
-        body: data,
-        type: ContentType.Json,
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags pools
+     * @name PoolsControllerSaveTokens
+     * @request GET:/pools/save-tokens
+     * @response `200` `void`
+     */
+    poolsControllerSaveTokens: (params: RequestParams = {}) =>
+      this.http.request<void, any>({
+        path: `/pools/save-tokens`,
+        method: "GET",
+        ...params,
+      }),
+  };
+  lending = {
+    /**
+     * No description
+     *
+     * @tags LendingsController
+     * @name LendingsControllerGetPoolItems
+     * @summary Получить список лэндингов
+     * @request GET:/lending
+     * @response `200` `LendingResponseDto`
+     */
+    lendingsControllerGetPoolItems: (
+      query: LendingsControllerGetPoolItemsParams,
+      params: RequestParams = {},
+    ) =>
+      this.http.request<LendingResponseDto, any>({
+        path: `/lending`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags LendingsController
+     * @name LendingsControllerGetPoolsItemsWithoutJob
+     * @summary Получить список лэндингов без job
+     * @request GET:/lending/without-job
+     * @response `200` `LendingResponseDto`
+     */
+    lendingsControllerGetPoolsItemsWithoutJob: (
+      query: LendingsControllerGetPoolsItemsWithoutJobParams,
+      params: RequestParams = {},
+    ) =>
+      this.http.request<LendingResponseDto, any>({
+        path: `/lending/without-job`,
+        method: "GET",
+        query: query,
         format: "json",
         ...params,
       }),

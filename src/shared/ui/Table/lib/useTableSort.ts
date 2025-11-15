@@ -53,10 +53,12 @@ export const useTableSort = <T extends object>({
     filters,
     perPage,
     page,
-    sort: {
-      field: orderBy!,
-      direction: order!,
-    },
+    sort: order
+      ? {
+          field: orderBy!,
+          direction: order!,
+        }
+      : undefined,
     setOrder,
     setOrderBy,
     onChangeSort,

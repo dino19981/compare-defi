@@ -10,6 +10,8 @@ import {
   TableCellProps as _TableCellProps,
 } from '@mui/material';
 
+import styles from './Table.module.scss';
+
 export interface TableCellProps extends _TableCellProps {
   key: string | number;
 }
@@ -23,10 +25,14 @@ export const Table = ({ headCells, bodyRows }: Props) => {
   return (
     <TableContainer>
       <MUITable size="small">
-        <TableHead>
+        <TableHead className={styles.tableHead}>
           <TableRow>
-            {headCells.map((cell) => (
-              <TableCell {...cell} key={cell.key} />
+            {headCells.map((cell, index) => (
+              <TableCell
+                {...cell}
+                key={cell.key}
+                className={index === 0 ? styles.firstColumn : undefined}
+              />
             ))}
           </TableRow>
         </TableHead>
@@ -34,8 +40,12 @@ export const Table = ({ headCells, bodyRows }: Props) => {
         <TableBody>
           {bodyRows.map((row, idx) => (
             <TableRow key={idx}>
-              {row.map((cell) => (
-                <TableCell {...cell} key={cell.key} />
+              {row.map((cell, cellIndex) => (
+                <TableCell
+                  {...cell}
+                  key={cell.key}
+                  className={`${styles.tableCell} ${cellIndex === 0 ? styles.firstColumn : ''}`}
+                />
               ))}
             </TableRow>
           ))}

@@ -3,12 +3,11 @@ import { useQuery } from '@tanstack/react-query';
 import { PoolsControllerGetPoolItemsParams } from 'shared/api/generated/Api';
 import { QueryKeys } from 'shared/config';
 
-import { getPools } from '../api';
-import { PoolItem } from '../types';
+import { GetPoolsResponse, getPools } from '../api';
 
 export const useGetPools = (
   params: PoolsControllerGetPoolItemsParams,
-  initialData?: PoolItem[],
+  initialData?: GetPoolsResponse,
 ) => {
   return useQuery({
     queryKey: [QueryKeys.Pools, params],

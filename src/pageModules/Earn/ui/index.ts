@@ -1,1 +1,1 @@
-export * from './Earn';
+export * from './EarnPage';

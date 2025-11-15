@@ -1,17 +1,15 @@
 import React, { FC, memo } from 'react';
 
-import {
-  Box,
-  InputLabel,
-  MenuItem,
-  Pagination,
-  PaginationProps,
-  Select,
-  SelectChangeEvent,
-  Stack,
-} from '@mui/material';
+import { Pagination, PaginationProps, Stack } from '@mui/material';
 
+import classNames from 'classnames';
 import { useTranslations } from 'next-intl';
+
+import { Button } from '../Button';
+import { Text } from '../Typography';
+import styles from './Table.module.scss';
+
+export const PER_PAGE_OPTIONS = [30, 50, 100, 150];
 
 interface TablePaginationProps extends PaginationProps {
   rowsPerPage?: number;
@@ -23,38 +21,34 @@ export const TablePagination: FC<TablePaginationProps> = memo((props) => {
   const t = useTranslations('pagination');
 
   const {
-    rowsPerPage = 10,
+    rowsPerPage = PER_PAGE_OPTIONS[0],
     onRowsPerPageChange,
-    rowsPerPageOptions = [5, 10, 20, 30, 40, 50],
+    rowsPerPageOptions = PER_PAGE_OPTIONS,
     ...paginationProps
   } = props;
 
-  const handleRowsPerPageChange = (event: SelectChangeEvent<number>) => {
-    onRowsPerPageChange?.(event.target.value as number);
-  };
-
   return (
-    <Stack alignItems="flex-end" paddingInline={10} paddingBlock={2}>
-      <Box display="flex" alignItems="center" gap={2}>
-        <InputLabel>{t('rowsPerPage')}</InputLabel>
-        <Select
-          size="small"
-          value={rowsPerPage}
-          onChange={handleRowsPerPageChange}
-          variant="outlined"
-          sx={{
-            minWidth: 50,
-          }}
-        >
-          {rowsPerPageOptions.map((option) => (
-            <MenuItem key={option} value={option}>
-              {option}
-            </MenuItem>
-          ))}
-        </Select>
+    <Stack className={styles.pagination} alignItems="flex-end" paddingInline={10} paddingBlock={2}>
+      <Pagination size="small" {...paginationProps} />
 
-        <Pagination size="small" {...paginationProps} />
-      </Box>
+      <div className={styles.perPageContainer}>
+        <Text>{t('show')}</Text>
+
+        {rowsPerPageOptions.map((option) => (
+          <Button
+            key={option}
+            value={option}
+            size="small"
+            variant="text"
+            onClick={() => onRowsPerPageChange?.(option)}
+            className={classNames(styles.perPageButton, {
+              [styles.activePerPage]: option === rowsPerPage,
+            })}
+          >
+            {option}
+          </Button>
+        ))}
+      </div>
     </Stack>
   );
 });

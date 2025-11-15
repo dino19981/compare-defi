@@ -1,3 +1,3 @@
-import { Earn } from 'pageModules/Earn';
+import { MainPage } from 'pageModules/Main';
 
-export default Earn;
+export default MainPage;

@@ -3,25 +3,32 @@
     "earning": "Earning",
     "pools": "Crypto exchanges"
   },
+  "pages": {
+    "earn": {
+      "title": "Cryptocurrency Staking Comparison – Yield, Terms, Risks",
+      "description": "Compare cryptocurrency staking yields. Learn about the best rates, terms, and risks to choose the optimal investment strategy."
+    },
+    "pools": {
+      "title": "Comparison of liquidity pools – yield, terms, risks",
+      "description": "Compare the best DeFi liquidity pools and yield opportunities across different platforms"
+    }
+  },
   "earn": {
-    "table": {
-      "columns": {
-        "token": "Token",
-        "apy": "APR/APY",
-        "duration": "Duration",
-        "platform": "Platform",
-        "actions": "Actions"
-      },
-      "actions": {
-        "goTo": "Go to platform"
-      },
-      "duration": {
-        "infinity": "Unlimited"
-      },
-      "filters": {
-        "token": "Search coin",
-        "platform": "Search platform"
-      }
+    "features": {
+      "token": "Token",
+      "apy": "APR/APY",
+      "duration": "Duration",
+      "platform": "Platform",
+      "actions": "Actions"
+    },
+    "actions": {
+      "goTo": "Go to platform"
+    },
+    "duration": {
+      "infinity": "Unlimited"
+    },
+    "filters": {
+      "token": "Search coin"
     },
     "ratesSettings": {
       "description": "Rate depends on the amount of staking"
@@ -30,8 +37,26 @@
       "description": "Only for new users"
     }
   },
+  "pools": {
+    "features": {
+      "token": "Tokens",
+      "apr": "APR",
+      "fee": "Fee",
+      "tvl": "TVL",
+      "platform": "Platform",
+      "chain": "Chain"
+    },
+    "actions": {
+      "goTo": "Go to platform"
+    }
+  },
   "pagination": {
-    "rowsPerPage": "Rows per page"
+    "show": "Show",
+    "showMore": "Show more"
+  },
+  "common": {
+    "lastUpdateTime": "Last update {date}",
+    "searchPlatform": "Search platform"
   },
   "pluralizes": {
     "infinity": "Unlimited",

@@ -1,2 +1,3 @@
 export * from './NestedKeys';
-export * from './SortDirectionEnum';
+export * from './SortOrder';
+export * from './ParamsWithLocale';

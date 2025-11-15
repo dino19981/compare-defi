@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  border-radius: 8px;
+
+  background-color: rgb(41, 41, 41);
+}
+
+.button {
+  & svg {
+    transition: color 0.3s ease;
+
+    color: #919191;
+  }
+
+  &:hover {
+    & svg {
+      color: #fff;
+    }
+  }
+}
+
+.active {
+  & svg {
+    color: #fff;
+  }
+}

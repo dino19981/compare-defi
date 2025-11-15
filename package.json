@@ -7,6 +7,8 @@
     "build": "npm run generate:api && next build",
     "start": "next start",
     "lint": "next lint",
+    "format": "prettier --write 'src/**/*.{ts,tsx}'",
+    "format:styles": "stylelint 'src/**/*.scss' --fix",
     "generate:api": "node scripts/generate-api-types.js",
     "generate:api:watch": "nodemon --watch scripts --exec \"npm run generate:api\""
   },
@@ -43,6 +45,7 @@
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19",
+    "critters": "^0.0.25",
     "eslint": "^8",
     "eslint-config-next": "15.0.4",
     "eslint-config-prettier": "^9.1.0",

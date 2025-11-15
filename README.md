@@ -30,6 +30,14 @@
 
 1. uniswap = ((volume24h × fee_rate) / totalLiquidity) \* 365 - годовая ставка
 
+## Фарминг
+
+1. cetus - https://app.cetus.zone/pools
+
+## Лаунчпулы
+
+1. cetus - https://launch.cetus.zone/?chain=sui
+
 ## Нужно разобраться
 
 1. pendle - странные токены, наверно нам не подходит
@@ -44,3 +52,7 @@
 ## Остановился
 
 1.
+
+## SEO
+
+1. Добавить json ld схему
